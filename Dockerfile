@@ -106,15 +106,12 @@ RUN chmod a+x /install.sh && \
 #VOLUME /data/db /config /cloud-encrypt /cloud-decrypt /local-decrypt /local-media /chunks /log
 VOLUME /config /cloud-encrypt /cloud-decrypt /local-decrypt /local-media /chunks /log
 
-
-RUN chmod -R 777 /log && \
-    mkdir /config
+RUN chmod -R 777 /log
 
 ####################
 # WORKING DIRECTORY
 ####################
 WORKDIR /data
-
 
 ####################
 # ENTRYPOINT
