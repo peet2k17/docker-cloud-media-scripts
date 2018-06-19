@@ -18,10 +18,6 @@ plexdrive_cache_bolt="/chunks/cache.bolt"
 #plexdrive_options="mount --config=/config --cache-file=${plexdrive_cache_bolt} --chunk-size=$(printenv CHUNK_SIZE) --chunk-check-threads=$(printenv CHUNK_CHECK_THREADS) --chunk-load-ahead=$(printenv CHUNK_LOAD_AHEAD) --chunk-load-threads=$(printenv CHUNK_LOAD_THREADS) --max-chunks=$(printenv MAX_CHUNKS) -o allow_other"
 plexdrive_options="mount --config=/config --cache-file=${plexdrive_cache_bolt} --chunk-size=$(printenv CHUNK_SIZE) --chunk-check-threads=$(printenv CHUNK_CHECK_THREADS) --chunk-load-ahead=$(printenv CHUNK_LOAD_AHEAD) --chunk-load-threads=$(printenv CHUNK_LOAD_THREADS) --max-chunks=$(printenv MAX_CHUNKS) --uid=${_puid:-911} --gid=${_pgid:-911} -o allow_other"
 
-if [ ! -z $(printenv CLEAR_CHUNK_MAX_SIZE) ]; then
-    plexdrive_options="${plexdrive_options} --clear-chunk-max-size=$(printenv CLEAR_CHUNK_MAX_SIZE)"
-fi
-
 if [ "$(printenv READ_ONLY)" != "0" ]; then
     rclone_mount_options="${rclone_mount_options} --read-only"
     plexdrive_options="${plexdrive_options} -o read_only"
