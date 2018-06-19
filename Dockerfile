@@ -107,7 +107,7 @@ RUN chmod a+x /install.sh && \
 VOLUME /config /cloud-encrypt /cloud-decrypt /local-decrypt /local-media /chunks /log
 
 
-RUN chmod -R 777 /data /log && \
+RUN chmod -R 777 /log && \
     mkdir /config
 
 ####################
