@@ -10,8 +10,11 @@ local_decrypt_dir="/local-decrypt"
 local_media_dir="/local-media"
 
 rclone_config="--config=/config/rclone.conf"
+rclone_exclude_file="/config/exclude.txt"
 rclone_options="${rclone_config} --buffer-size $(printenv BUFFER_SIZE) --checkers $(printenv CHECKERS)"
 rclone_mount_options="${rclone_options} --allow-non-empty --allow-other --max-read-ahead $(printenv MAX_READ_AHEAD) --uid ${_puid:-911} --gid ${_pgid:-911}"
+rclone_mirror_options="${rclone_config} --exclude-from=${rclone_exclude_file} --transfers $(printenv MIRROR_TRANSFERS) --bwlimit $(printenv MIRROR_BWLIMIT) --tpslimit $(printenv MIRROR_TPS_LIMIT) --tpslimit-burst $(printenv MIRROR_TPS_LIMIT_BURST)"
+rclone_mount_options="${rclone_options} --allow-non-empty --allow-other --uid ${_puid:-911} --gid ${_pgid:-911}"
 
 plexdrive_temp_dir="/chunks"
 plexdrive_cache_bolt="/chunks/cache.bolt"
@@ -23,10 +26,28 @@ if [ "$(printenv READ_ONLY)" != "0" ]; then
     plexdrive_options="${plexdrive_options} -o read_only"
 fi
 
+if [ "$(printenv RCLONE_VERBOSE)" != "0" ]; then
+  rclone_mirror_options="${rclone_mirror_options} --verbose"
+  rclone_mount_options="${rclone_mount_options} --verbose"
+fi
+
+if [ "$(printenv RCLONE_REMOTE_CONTROL)" != "0" ]; then
+  rclone_mount_options="${rclone_mount_options} --rc"
+fi
+
+if [ "$(printenv RCLONE_LOG_LEVEL)" != "" ]; then
+  rclone_mirror_options="${rclone_mirror_options} --log-level $(printenv RCLONE_LOG_LEVEL)"
+  rclone_mount_options="${rclone_mount_options} --log-level $(printenv RCLONE_LOG_LEVEL)"
+fi
+
 ufs_options="-o uid=${_puid:-911} -o gid=${_pgid:-911} -o cow,allow_other,direct_io,nonempty,auto_cache,sync_read"
 
 rclone_cloud_endpoint=$(printenv RCLONE_CLOUD_ENDPOINT | tr -d '"' | tr -d "'")
 rclone_local_endpoint=$(printenv RCLONE_LOCAL_ENDPOINT | tr -d '"' | tr -d "'")
+
+if [ ! -f "${rclone_exclude_file}" ]; then
+  touch ${rclone_exclude_file}
+fi
 
 log_dir="/log"
 if [ ! -d "${log_dir}" ]; then
