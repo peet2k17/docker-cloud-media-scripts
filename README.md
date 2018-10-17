@@ -10,7 +10,7 @@ docker create \
 	-v /mnt/external/plexdrive:/chunks \
 	-v /logs:/log \
 	--privileged --cap-add=MKNOD --cap-add=SYS_ADMIN --device=/dev/fuse \
-	madslundt/cloud-media-scripts
+	peet2k17/cloud-media-scripts
 ```
 
 If you have more space you can increase `REMOVE_LOCAL_FILES_WHEN_SPACE_EXCEEDS_GB`, `FREEUP_ATLEAST_GB` and either increase `CLEAR_CHUNK_AGE` or add `CLEAR_CHUNK_MAX_SIZE`.
@@ -28,7 +28,7 @@ docker create \
 	-e REMOVE_LOCAL_FILES_WHEN_SPACE_EXCEEDS_GB="2000" \
 	-e FREEUP_ATLEAST_GB="1000" \
 	--privileged --cap-add=MKNOD --cap-add=SYS_ADMIN --device=/dev/fuse \
-	madslundt/cloud-media-scripts
+	peet2k17/cloud-media-scripts
 ```
 
 
@@ -137,7 +137,7 @@ Rclone documentation if needed [click here](https://rclone.org/docs/)
 ## Plexdrive
 Setup Plexdrive to the cloud. Run the command `docker exec -ti <DOCKER_CONTAINER> plexdrive_setup`
 
-Plexdrive documentation if needed [click here](https://github.com/dweidenfeld/plexdrive/tree/4.0.0)
+Plexdrive documentation if needed [click here](https://github.com/dweidenfeld/plexdrive/tree/5.0.0)
 
 # Commands
 Upload local files to cloud run: `docker exec <DOCKER_CONTAINER> cloudupload`
@@ -223,7 +223,7 @@ The reason for these permissions are that when writing to the local folder (`/lo
 `docker run --name cloud-media-scripts -d cloud-media-scripts`
 
 
-If you want to support the project or just buy me a beer I accept Paypal and bitcoins.
+If you want to support the project or just buy madslundt a beer He accepts Paypal and bitcoins.
 
 [![paypal](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://www.paypal.me/madslundt)
 
