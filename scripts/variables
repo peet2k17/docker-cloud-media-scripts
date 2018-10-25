@@ -19,7 +19,7 @@ rclone_mount_options="${rclone_options} --allow-non-empty --allow-other --uid ${
 plexdrive_temp_dir="/chunks"
 plexdrive_cache_bolt="/chunks/cache.bolt"
 #plexdrive_options="mount --config=/config --cache-file=${plexdrive_cache_bolt} --chunk-size=$(printenv CHUNK_SIZE) --chunk-check-threads=$(printenv CHUNK_CHECK_THREADS) --chunk-load-ahead=$(printenv CHUNK_LOAD_AHEAD) --chunk-load-threads=$(printenv CHUNK_LOAD_THREADS) --max-chunks=$(printenv MAX_CHUNKS) -o allow_other"
-plexdrive_options="mount --config=/config --cache-file=${plexdrive_cache_bolt} --chunk-size=$(printenv CHUNK_SIZE) --chunk-check-threads=$(printenv CHUNK_CHECK_THREADS) --chunk-load-ahead=$(printenv CHUNK_LOAD_AHEAD) --chunk-load-threads=$(printenv CHUNK_LOAD_THREADS) --max-chunks=$(printenv MAX_CHUNKS) --uid=${_puid:-911} --gid=${_pgid:-911} -o allow_other --umask=$(printenv RCLONE_MOUNT_UMASK)"
+plexdrive_options="mount --config=/config --cache-file=${plexdrive_cache_bolt} --chunk-size=$(printenv CHUNK_SIZE) --chunk-check-threads=$(printenv CHUNK_CHECK_THREADS) --chunk-load-ahead=$(printenv CHUNK_LOAD_AHEAD) --chunk-load-threads=$(printenv CHUNK_LOAD_THREADS) --max-chunks=$(printenv MAX_CHUNKS) --uid=${_puid:-911} --gid=${_pgid:-911} -o allow_other --umask=$(printenv PLEXDRIVE_MOUNT_UMASK)"
 
 if [ "$(printenv READ_ONLY)" != "0" ]; then
     rclone_mount_options="${rclone_mount_options} --read-only"
