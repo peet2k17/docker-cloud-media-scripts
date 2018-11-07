@@ -71,6 +71,7 @@ ENV PLEXDRIVE_MOUNT_UMASK "0755"
 
 # UnionFS
 ENV UFS_ADDITIONAL_MOUNT_OPTIONS ""
+ENV UFS_USE_UNIONFS "1"
 
 # Time format
 ENV DATE_FORMAT "+%F@%T"
@@ -109,7 +110,7 @@ RUN chmod a+x /install.sh && \
 ####################
 # Define mountable directories.
 #VOLUME /data/db /config /cloud-encrypt /cloud-decrypt /local-decrypt /local-media /chunks /log
-VOLUME /config /cloud-encrypt /cloud-decrypt /local-decrypt /local-media /chunks /log
+VOLUME /config /cloud-encrypt /cloud-decrypt /local-decrypt /local-media /local-workdir /chunks /log
 
 RUN chmod -R 777 /log
 

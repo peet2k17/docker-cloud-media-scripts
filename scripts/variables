@@ -9,6 +9,8 @@ cloud_decrypt_dir="/cloud-decrypt"
 local_decrypt_dir="/local-decrypt"
 local_media_dir="/local-media"
 
+local_work_dir="/local-workdir"
+
 rclone_config="--config=/config/rclone.conf"
 rclone_exclude_file="/config/exclude.txt"
 rclone_options="${rclone_config} --buffer-size $(printenv BUFFER_SIZE) --checkers $(printenv CHECKERS)"

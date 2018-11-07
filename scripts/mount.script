@@ -90,7 +90,9 @@ else
 	if [ "$(printenv ENCRYPT_MEDIA)" != "0" ]; then
 		mount_local_media
 	fi
-	mount_union
+	if [ "$(printenv UFS_USE_UNIONFS)" != "0" ]; then
+		mount_union
+	fi
 fi
 
 exit 0
