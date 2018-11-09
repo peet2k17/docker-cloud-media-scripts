@@ -23,6 +23,14 @@ RUN apt-get update && \
     apt-get install -y openssl && \
     sed -i 's/#user_allow_other/user_allow_other/' /etc/fuse.conf
 
+###################
+# MergerFS
+###################
+RUN \
+  wget https://github.com/trapexit/mergerfs/releases/download/2.25.0/mergerfs_2.25.0.ubuntu-xenial_amd64.deb \
+  dpkg -i mergerfs_2.25.0.ubuntu-xenial_amd64.deb \
+  rm mergerfs*.deb
+
 # S6 overlay
 ENV S6_BEHAVIOUR_IF_STAGE2_FAILS=2
 ENV S6_KEEP_ENV=1
@@ -72,6 +80,14 @@ ENV PLEXDRIVE_MOUNT_UMASK "0755"
 # UnionFS
 ENV UFS_ADDITIONAL_MOUNT_OPTIONS ""
 ENV UFS_USE_UNIONFS "1"
+
+# MergerFS
+ENV MFS_ADDITIONAL_MOUNT_OPTIONS ""
+ENV MFS_USE_MERGERFS "0"
+
+# Union Mount
+ENV UNION_ENABLED "1"
+ENV UNION_PROGRAM "UNIONFS" # or MERGERFS
 
 # Time format
 ENV DATE_FORMAT "+%F@%T"

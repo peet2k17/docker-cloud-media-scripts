@@ -71,15 +71,31 @@ mount_union () {
 	sleep 5
 
 	# Mount plex media directory if not already mounted.
-	if [ $(ps -ef | grep "unionfs" | grep -v "grep" | wc -l) == "0" ]; then
-		ufs_mounts="${local_decrypt_dir}=RW:${cloud_decrypt_dir}=RO"
+	# Check Union Mount Program
+	if [ "$(printenv UNION_PROGRAM)" == "UNIONFS" ]; then
+		if [ $(ps -ef | grep "unionfs" | grep -v "grep" | wc -l) == "0" ]; then
+			ufs_mounts="${local_decrypt_dir}=RW:${cloud_decrypt_dir}=RO"
+			echo "[ $(date $(printenv DATE_FORMAT)) ] Mounting union: ${local_media_dir}"
+			unionfs $ufs_options "${ufs_mounts}" "${local_media_dir}"
+		else
+			echo "[ $(date $(printenv DATE_FORMAT)) ] Union mountpoint: ${local_media_dir} already mounted."
+		fi
+	fi
 
-		echo "[ $(date $(printenv DATE_FORMAT)) ] Mounting union: ${local_media_dir}"
-		unionfs $ufs_options "${ufs_mounts}" "${local_media_dir}"
-	else
-		echo "[ $(date $(printenv DATE_FORMAT)) ] Union mountpoint: ${local_media_dir} already mounted."
+	if [ "$(printenv UNION_PROGRAM)" == "MERGERFS" ]; then
+		if [ $(ps -ef | grep "mergerfs" | grep -v "grep" | wc -l) == "0" ]; then
+			mfs_mounts="${local_decrypt_dir}:${cloud_decrypt_dir}"
+			echo "[ $(date $(printenv DATE_FORMAT)) ] Mounting union: ${local_media_dir}"
+			mergerfs $mfs_options "${mfs_mounts}" "${local_media_dir}"
+		else
+			echo "[ $(date $(printenv DATE_FORMAT)) ] Union mountpoint: ${local_media_dir} already mounted."
+		fi
 	fi
 }
+
+#echo "[ $(date ${date_format}) ] Mounting final library with MergerFS in mountpoint: ${local_media_dir}"
+#{}"${mfs_bin}" $mfs_options "${mfs_mounts}" "${local_media_dir}"
+#echo "[ $(date ${date_format}) ] Mounted successfully with MergerFS"
 
 ###############################################################################
 
@@ -90,7 +106,7 @@ else
 	if [ "$(printenv ENCRYPT_MEDIA)" != "0" ]; then
 		mount_local_media
 	fi
-	if [ "$(printenv UFS_USE_UNIONFS)" != "0" ]; then
+	if [ "$(printenv UNION_ENABLED)" != "0" ]; then
 		mount_union
 	fi
 fi
