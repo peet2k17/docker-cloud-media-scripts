@@ -27,8 +27,8 @@ RUN apt-get update && \
 # MergerFS
 ###################
 RUN \
-  wget https://github.com/trapexit/mergerfs/releases/download/2.25.0/mergerfs_2.25.0.ubuntu-xenial_amd64.deb \
-  dpkg -i mergerfs_2.25.0.ubuntu-xenial_amd64.deb \
+  wget https://github.com/trapexit/mergerfs/releases/download/2.25.0/mergerfs_2.25.0.ubuntu-xenial_amd64.deb && \
+  dpkg -i mergerfs_2.25.0.ubuntu-xenial_amd64.deb && \
   rm mergerfs*.deb
 
 # S6 overlay
