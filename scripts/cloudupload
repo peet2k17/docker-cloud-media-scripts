@@ -3,6 +3,3 @@
 
 #only upload files to endpoint(s)
 cloudupload.script "$@" 2>&1 | tee "${log_dir}/cloudupload.log"
-
-#Remove files from local storage
-rmlocal.script "$@" 2>&1 | tee "${log_dir}/rmlocal.log"
