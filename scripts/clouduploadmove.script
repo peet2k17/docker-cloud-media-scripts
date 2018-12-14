@@ -53,10 +53,10 @@ find "${local_decrypt_dir}" -type f -print0 | xargs -0 stat --format '%Y :%y %n'
 		echo "[ $(date $(printenv DATE_FORMAT)) ] Processing File: ${cloud_decrypt_dir}${filename}"
 
 		echo "[ $(date $(printenv DATE_FORMAT)) ] Uploading File: ${cloud_decrypt_dir}${filename} to: ${rclone_cloud_endpoint}${destpath}"
- 		rclone copy $rclone_options "$@" "$n" "${rclone_cloud_endpoint}${destpath}" >/dev/null 2>&1
+ 		rclone copy $rclone_copy_options "$@" "$n" "${rclone_cloud_endpoint}${destpath}" >/dev/null 2>&1
 
 		echo "[ $(date $(printenv DATE_FORMAT)) ] Uploading File: ${cloud_decrypt_dir}${filename} to: ${rclone_mirror_endpoint}${destpath}"
-		rclone copy $rclone_options "$@" "$n" "${rclone_mirror_endpoint}${destpath}" >/dev/null 2>&1
+		rclone copy $rclone_copy_options "$@" "$n" "${rclone_mirror_endpoint}${destpath}" >/dev/null 2>&1
 
 		fileSize=$(du -sb "$n" | awk '{print $1}')
     addedSize=$((addedSize + fileSize))
@@ -76,7 +76,7 @@ find "${local_decrypt_dir}" -type f -print0 | xargs -0 stat --format '%Y :%y %n'
 
     # Move file to remote destination[s], retaining path
 		echo "[ $(date $(printenv DATE_FORMAT)) ] Finish File by moving File: ${cloud_decrypt_dir}${filename} to: ${rclone_cloud_endpoint}${destpath}"
-		rclone move $rclone_options "$@" "$n" "${rclone_cloud_endpoint}${destpath}" >/dev/null 2>&1
+		rclone move $rclone_move_options "$@" "$n" "${rclone_cloud_endpoint}${destpath}" >/dev/null 2>&1
 
     movedSize=$((movedSize + fileSize))
     sizeInMb=$((movedSize / 1000 / 1000))
