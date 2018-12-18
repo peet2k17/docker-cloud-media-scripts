@@ -92,6 +92,10 @@ find "${local_decrypt_dir}" -type f -print0 | xargs -0 stat --format '%Y :%y %n'
     fi
 	done
 
+# Removing empty folders on local Filesystem
+echo "[ $(date $(printenv DATE_FORMAT)) ] Cleaning local Filesystem (Empty Folders) in: ${cloud_decrypt_dir}"
+find "${local_decrypt_dir}" -mindepth 1 -type d -empty -delete
+
 echo "[ $(date $(printenv DATE_FORMAT)) ] ###### Cloud upload ended successfully ######"
 
 exit 0
