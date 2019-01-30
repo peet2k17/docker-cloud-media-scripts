@@ -26,6 +26,7 @@ rm_time () {
 				(*.QTFS) continue ;;
 				(*.unionfs-fuse*) continue ;;
 				(*.DS_STORE) continue ;;
+				(*.download) continue ;;
 			esac
 
 			# If file is opened by another process, wait until it isn't.
@@ -75,6 +76,7 @@ rm_instant () {
 				(*.QTFS) continue ;;
 				(*.unionfs-fuse*) continue ;;
 				(*.DS_STORE) continue ;;
+				(*.download) continue ;;
 			esac
 
 			# If file is opened by another process, wait until it isn't.
@@ -137,7 +139,8 @@ rm_space () {
 					(*_HIDDEN~) continue ;;
 					(*.QTFS) continue ;;
 					(*.fuse*) continue ;;
-					(.DS_STORE) continue ;;
+					(*.DS_STORE) continue ;;
+					(*.download) continue ;;
 			esac
 
 			# If file is opened by another process, wait until it isn't.
