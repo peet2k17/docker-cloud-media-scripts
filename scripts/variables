@@ -57,6 +57,7 @@ mfs_options="-o uid=${_puid:-911} -o gid=${_pgid:-911} -o defaults,nonempty,allo
 rclone_cloud_endpoint=$(printenv RCLONE_CLOUD_ENDPOINT | tr -d '"' | tr -d "'")
 rclone_mirror_endpoint=$(printenv RCLONE_MIRROR_ENDPOINT | tr -d '"' | tr -d "'")
 rclone_local_endpoint=$(printenv RCLONE_LOCAL_ENDPOINT | tr -d '"' | tr -d "'")
+rclone_union_endpoint=$(printenv RCLONE_UNION_ENDPOINT | tr -d '"' | tr -d "'")
 
 if [ ! -f "${rclone_exclude_file}" ]; then
   touch ${rclone_exclude_file}

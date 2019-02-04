@@ -91,6 +91,12 @@ mount_union () {
 			echo "[ $(date $(printenv DATE_FORMAT)) ] Union mountpoint: ${local_media_dir} already mounted."
 		fi
 	fi
+
+	if [ "$(printenv UNION_PROGRAM)" == "RCLONE" ]; then
+		check_rclone_union
+		echo "[ $(date $(printenv DATE_FORMAT)) ] Mounting union: ${local_media_dir}"
+		rclone mount $rclone_mount_options "$@" "${rclone_union_endpoint}" "${local_media_dir}" &
+	fi
 }
 
 #echo "[ $(date ${date_format}) ] Mounting final library with MergerFS in mountpoint: ${local_media_dir}"

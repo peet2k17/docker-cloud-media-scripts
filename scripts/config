@@ -64,3 +64,25 @@ check_rclone_mirror () {
 		fi
 	fi
 }
+
+check_rclone_union () {
+	if [ "$(printenv UNION_PROGRAM)" == "RCLONE" ]; then
+		if [[ ! "$(printenv RCLONE_UNION_ENDPOINT)" == *: ]]; then
+			printf "\n\n"
+			echo "Missing colon (:) in RCLONE_UNION_ENDPOINT ($(printenv RCLONE_UNION_ENDPOINT))"
+			echo "Run: docker exec -ti <DOCKER_CONTAINER> rclone_setup"
+			printf "\n\n"
+
+			exit 02
+		fi
+
+		if [ "$(rclone listremotes $rclone_config | grep $(printenv RCLONE_UNION_ENDPOINT) | wc -l)" == "0" ]; then
+			printf "\n\n"
+			echo "RCLONE_UNION_ENDPOINT ($(printenv RCLONE_UNION_ENDPOINT)) endpoint has not been created within rclone"
+			echo "Run: docker exec -ti <DOCKER_CONTAINER> rclone_setup"
+			printf "\n\n"
+
+			exit 02
+		fi
+	fi
+}
