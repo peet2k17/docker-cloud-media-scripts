@@ -36,7 +36,9 @@ if [ "$(printenv RCLONE_VERBOSE)" != "0" ]; then
 fi
 
 if [ "$(printenv RCLONE_REMOTE_CONTROL)" != "0" ]; then
-  rclone_mount_options="${rclone_mount_options} --rc"
+  rclone_mount_options_rc=" --rc"
+else
+  rclone_mount_options_rc=""
 fi
 
 if [ "$(printenv RCLONE_LOG_LEVEL)" != "" ]; then
