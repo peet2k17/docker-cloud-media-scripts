@@ -21,7 +21,8 @@ oldSize=0
 
 echo "[ $(date $(printenv DATE_FORMAT)) ] ###### Start cloud upload ######"
 # Generate filelist and iterate through it...
-find "${local_decrypt_dir}" -type f -print0 | xargs -0 stat --format '%Y :%y %n' | sort -nr | cut -d: -f2- | awk '{$1=$2=$3=""; print $0}' |
+#find "${local_decrypt_dir}" -type f -print0 | xargs -0 stat --format '%Y :%y %n' | sort -nr | cut -d: -f2- | awk '{$1=$2=$3=""; print $0}' |
+find "${local_decrypt_dir}" -type f |
 	while read -r n; do
 
 		# Find the pathname relative to the root of your remote and store filename
