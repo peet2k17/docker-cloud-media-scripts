@@ -39,10 +39,10 @@ find "${local_decrypt_dir}" -type f -print0 | xargs -0 stat --format '%Y :%y %n'
 			(*.download*) continue ;;
 		esac
 
-		if [ -f "${cloud_decrypt_dir}${filename}" ]; then
+		#if [ -f "${cloud_decrypt_dir}${filename}" ]; then
 			#Uncomment Skip File, because we want to upload it to, and remove it
 			#continue
-		fi
+		#fi
 
 		# If file is opened by another process, wait until it isn't.
 		while [ "$(lsof "$n" >/dev/null 2>&1)" ] || \
