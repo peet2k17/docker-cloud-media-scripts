@@ -19,6 +19,7 @@ rclone_mirror_options="${rclone_config} --exclude-from=${rclone_exclude_file} --
 rclone_copy_options="${rclone_options} --drive-chunk-size $(printenv COPY_CHUNK_SIZE) --bwlimit $(printenv COPY_BWLIMIT) --tpslimit $(printenv COPY_TPS_LIMIT) --tpslimit-burst $(printenv COPY_TPS_LIMIT_BURST) --fast-list"
 rclone_move_options="${rclone_options} --drive-chunk-size $(printenv MOVE_CHUNK_SIZE) --bwlimit $(printenv MOVE_BWLIMIT) --tpslimit $(printenv MOVE_TPS_LIMIT) --tpslimit-burst $(printenv MOVE_TPS_LIMIT_BURST) --fast-list"
 rclone_mount_options="${rclone_options} --allow-non-empty --allow-other --uid ${_puid:-911} --gid ${_pgid:-911} --umask $(printenv RCLONE_MOUNT_UMASK)"
+rclone_mount_vfs_options="${rclone_mount_options} --vfs-read-chunk-size=64M --vfs-read-chunk-size-limit=2048M --max-read-ahead=256M --drive-skip-gdocs --poll-interval=1m --dir-cache-time=168h --drive-chunk-size=64M --timeout=10m --fuse-flag=sync_read --fuse-flag=auto_cache"
 
 plexdrive_temp_dir="/chunks"
 plexdrive_cache_bolt="/chunks/cache.bolt"
@@ -60,6 +61,7 @@ rclone_cloud_endpoint=$(printenv RCLONE_CLOUD_ENDPOINT | tr -d '"' | tr -d "'")
 rclone_mirror_endpoint=$(printenv RCLONE_MIRROR_ENDPOINT | tr -d '"' | tr -d "'")
 rclone_local_endpoint=$(printenv RCLONE_LOCAL_ENDPOINT | tr -d '"' | tr -d "'")
 rclone_union_endpoint=$(printenv RCLONE_UNION_ENDPOINT | tr -d '"' | tr -d "'")
+rclone_vfs_endpoint=$(printenv RCLONE_VFS_ENDPOINT | tr -d '"' | tr -d "'")
 
 if [ ! -f "${rclone_exclude_file}" ]; then
   touch ${rclone_exclude_file}
