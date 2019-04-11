@@ -1,6 +1,6 @@
 #!/bin/bash
 # Rclone variables
-_rclone_version="v1.45"
+_rclone_version="v1.46"
 rclone_release="rclone-${_rclone_version}-linux-amd64"
 rclone_zip="${rclone_release}.zip"
 rclone_url="https://github.com/ncw/rclone/releases/download/${_rclone_version}/${rclone_zip}"
