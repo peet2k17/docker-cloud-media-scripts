@@ -6,7 +6,7 @@
 #rclone_url="https://github.com/ncw/rclone/releases/download/${_rclone_version}/${rclone_zip}"
 
 _rclone_version="v1.46.0-117-g0d4a3520-beta"
-rclone_release="rclone-${_rclone_version}-beta-linux-amd64"
+rclone_release="rclone-${_rclone_version}-linux-amd64"
 rclone_zip="${rclone_release}.zip"
 rclone_url="https://beta.rclone.org/${_rclone_version}/${rclone_zip}"
 
