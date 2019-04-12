@@ -7,6 +7,7 @@
 
 _rclone_version="beta-latest"
 rclone_release="rclone-${_rclone_version}-linux-amd64"
+rclone_release_wildcard="rclone-*-beta-linux-amd64"
 rclone_zip="${rclone_release}.zip"
 rclone_url="https://beta.rclone.org/${rclone_zip}"
 
@@ -17,10 +18,10 @@ rclone_url="https://beta.rclone.org/${rclone_zip}"
 # Rclone
 wget "$rclone_url"
 unzip "$rclone_zip"
-chmod a+x "${rclone_release}/rclone"
-cp -rf "${rclone_release}/rclone" "/usr/bin/rclone"
+chmod a+x "${rclone_release_wildcard}/rclone"
+cp -rf "${rclone_release_wildcard}/rclone" "/usr/bin/rclone"
 rm -rf "$rclone_zip"
-rm -rf "$rclone_release"
+rm -rf "$rclone_release_wildcard"
 
 # Plexdrive
 #wget "$plexdrive_url"
