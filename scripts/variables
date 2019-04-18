@@ -47,7 +47,7 @@ fi
 ###ufs_options="-o uid=${_puid:-911} -o gid=${_pgid:-911} -o allow_other"
 ufs_options="-o uid=${_puid:-911} -o gid=${_pgid:-911} -o cow,allow_other,direct_io,nonempty,auto_cache,sync_read"
 #mfs_options="-o uid=${_puid:-911} -o gid=${_pgid:-911} -o defaults,nonempty,allow_other,direct_io,use_ino,category.create=ff,category.search=ff,minfreespace=0"
-mfs_options="-o uid=${_puid:-911} -o gid=${_pgid:-911} -o defaults,sync_read,auto_cache,use_ino,allow_other,func.getattr=newest,category.action=all,category.create=ff"
+mfs_options="-o uid=${_puid:-911} -o gid=${_pgid:-911} -o defaults,nonempty,sync_read,auto_cache,use_ino,allow_other,func.getattr=newest,category.action=all,category.create=ff"
 
 ###temp disable
 ###if [ "$(printenv UFS_ADDITIONAL_MOUNT_OPTIONS)" != "" ]; then
