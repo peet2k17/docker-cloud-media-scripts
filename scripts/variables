@@ -18,7 +18,7 @@ rclone_options="${rclone_config} --buffer-size $(printenv BUFFER_SIZE) --checker
 rclone_mirror_options="${rclone_config} --exclude-from=${rclone_exclude_file} --drive-chunk-size $(printenv MIRROR_CHUNK_SIZE) --bwlimit $(printenv MIRROR_BWLIMIT) --tpslimit $(printenv MIRROR_TPS_LIMIT) --tpslimit-burst $(printenv MIRROR_TPS_LIMIT_BURST) --fast-list"
 rclone_copy_options="${rclone_options} --drive-chunk-size $(printenv COPY_CHUNK_SIZE) --bwlimit $(printenv COPY_BWLIMIT) --tpslimit $(printenv COPY_TPS_LIMIT) --tpslimit-burst $(printenv COPY_TPS_LIMIT_BURST) --fast-list"
 rclone_move_options="${rclone_options} --drive-chunk-size $(printenv MOVE_CHUNK_SIZE) --bwlimit $(printenv MOVE_BWLIMIT) --tpslimit $(printenv MOVE_TPS_LIMIT) --tpslimit-burst $(printenv MOVE_TPS_LIMIT_BURST) --fast-list"
-rclone_mount_options="${rclone_options} --allow-non-empty --allow-other --uid ${_puid:-911} --gid ${_pgid:-911} --umask $(printenv RCLONE_MOUNT_UMASK) --vfs-read-chunk-size=$(printenv VFS_READ_CHUNK_SIZE) --vfs-read-chunk-size-limit=$(printenv VFS_READ_CHUNK_SIZE_LIMIT) --max-read-ahead=$(printenv MAX_READ_AHEAD) --drive-skip-gdocs --poll-interval=1m --dir-cache-time=$(printenv DIR_CACHE_TIME) --drive-chunk-size=$(printenv DRIVE_CHUNK_SIZE) --timeout=10m --fuse-flag=sync_read --fuse-flag=auto_cache"
+rclone_mount_options="${rclone_options} --allow-non-empty --allow-other --uid ${_puid:-911} --gid ${_pgid:-911} --umask $(printenv RCLONE_MOUNT_UMASK) --vfs-read-chunk-size=$(printenv VFS_READ_CHUNK_SIZE) --vfs-read-chunk-size-limit=$(printenv VFS_READ_CHUNK_SIZE_LIMIT) --max-read-ahead=$(printenv MAX_READ_AHEAD) --drive-skip-gdocs --poll-interval=1m --dir-cache-time=$(printenv DIR_CACHE_TIME) --drive-chunk-size=$(printenv DRIVE_CHUNK_SIZE) --timeout=1h"
 
 plexdrive_temp_dir="/chunks"
 plexdrive_cache_bolt="/chunks/cache.bolt"
@@ -46,7 +46,8 @@ fi
 
 ###ufs_options="-o uid=${_puid:-911} -o gid=${_pgid:-911} -o allow_other"
 ufs_options="-o uid=${_puid:-911} -o gid=${_pgid:-911} -o cow,allow_other,direct_io,nonempty,auto_cache,sync_read"
-mfs_options="-o uid=${_puid:-911} -o gid=${_pgid:-911} -o defaults,nonempty,allow_other,direct_io,use_ino,category.create=ff,category.search=ff,minfreespace=0"
+#mfs_options="-o uid=${_puid:-911} -o gid=${_pgid:-911} -o defaults,nonempty,allow_other,direct_io,use_ino,category.create=ff,category.search=ff,minfreespace=0"
+mfs_options="-o uid=${_puid:-911} -o gid=${_pgid:-911} -o defaults,sync_read,auto_cache,use_ino,allow_other,func.getattr=newest,category.action=all,category.create=ff"
 
 ###temp disable
 ###if [ "$(printenv UFS_ADDITIONAL_MOUNT_OPTIONS)" != "" ]; then
