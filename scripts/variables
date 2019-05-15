@@ -44,6 +44,13 @@ if [ "$(printenv RCLONE_LOG_LEVEL)" != "" ]; then
   rclone_mount_options="${rclone_mount_options} --log-level $(printenv RCLONE_LOG_LEVEL)"
 fi
 
+if [ "$(printenv RCLONE_USER_AGENT)" != "" ]; then
+  rclone_mirror_options="${rclone_mirror_options} --user-agent $(printenv RCLONE_USER_AGENT)"
+  rclone_mount_options="${rclone_mount_options} --user-agent $(printenv RCLONE_USER_AGENT)"
+  rclone_copy_options="${rclone_copy_options} --user-agent $(printenv RCLONE_USER_AGENT)"
+  rclone_move_options="${rclone_move_options} --user-agent $(printenv RCLONE_USER_AGENT)"
+fi
+
 ###ufs_options="-o uid=${_puid:-911} -o gid=${_pgid:-911} -o allow_other"
 ufs_options="-o uid=${_puid:-911} -o gid=${_pgid:-911} -o cow,allow_other,direct_io,nonempty,auto_cache,sync_read"
 #mfs_options="-o uid=${_puid:-911} -o gid=${_pgid:-911} -o defaults,nonempty,allow_other,direct_io,use_ino,category.create=ff,category.search=ff,minfreespace=0"
